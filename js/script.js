@@ -12,7 +12,6 @@ function getAndPrintUpdatedToDoList (){
     url: 'http://157.230.17.132:3010/todos',
     method: 'GET',
     success: function (data){
-      console.log(data);
       listApi = data;
       printList();
     },
@@ -43,6 +42,7 @@ function addButton(){
       success: function (data){
         $('#to-do-list').html('');
         getAndPrintUpdatedToDoList ();
+        $('#myInput').val('');
       },
       error: function (err){
         console.log('err', err);
@@ -56,23 +56,22 @@ function clickDelete(){
   $(document).on('click', '.delete', deleteFunction);
 }
 
-
-
 function deleteFunction() {
   var id = $(this).data('id');
-  console.log(id);
 
-  // $.ajax({
-  //   url: `http://157.230.17.132:3010/todos/${id}`,
-  //   method: 'DELETE',
-  //   success: function (data){
-  //     console.log(data);
-  //   },
-  //   error: function (err){
-  //     console.log('err', err);
-  //   }
-  //
-  // });
+  $.ajax({
+    url: `http://157.230.17.132:3010/todos/${id}`,
+    method: 'DELETE',
+    success: function (data){
+      $('#to-do-list').html('');
+      getAndPrintUpdatedToDoList ();
+    },
+    error: function (err){
+      console.log('err', err);
+    }
+
+  });
+
 }
 
 
